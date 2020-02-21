@@ -72,11 +72,11 @@ jobs:
             fi 
 
 workflows:
-  version: 2
   build_all:
     jobs:
       - remix-ide
-      build_all: 
+      build: 
       jobs: 
         - "Firefox"
         - "Chrome"
+  version: 2
