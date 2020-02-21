@@ -23,20 +23,41 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run lint && npm run test && npm run make-mock-compiler
-      - run:
-          name: Download Selenium
-          command: ./node_modules/.bin/selenium-standalone install
-      - run:
-          name: Start Selenium
-          command: ./node_modules/.bin/selenium-standalone start
-          background: true
-      - run:
-          name: Download Firefox
-          command: sudo apt-get purge -y firefox && wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_73.0.1-0ubuntu1_amd64.deb
-      - run:
-          name: Install Firefox
-          command: sudo dpkg -i firefox-mozilla-build_73.0.1-0ubuntu1_amd64.deb
-      - run: ./ci/browser_tests.sh
+    
+      jobs:
+        firefox:
+          steps: 
+            - run:
+              name: Download Selenium
+              command: ./node_modules/.bin/selenium-standalone install
+            - run:
+              name: Start Selenium
+              command: ./node_modules/.bin/selenium-standalone start
+              background: true
+            - run:
+              name: Download Firefox
+              command: sudo apt-get purge -y firefox && wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_73.0.1-0ubuntu1_amd64.deb
+            - run:
+              name: Install Firefox
+              command: sudo dpkg -i firefox-mozilla-build_73.0.1-0ubuntu1_amd64.deb
+            - run: ./ci/browser_tests.sh
+        
+        chrome:
+          steps: 
+            - run:
+              name: Download Selenium
+              command: ./node_modules/.bin/selenium-standalone install
+            - run:
+              name: Start Selenium
+              command: ./node_modules/.bin/selenium-standalone start
+              background: true
+            - run:
+              name: Download Firefox
+              command: sudo apt-get purge -y firefox && wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_73.0.1-0ubuntu1_amd64.deb
+            - run:
+              name: Install Firefox
+              command: sudo dpkg -i firefox-mozilla-build_73.0.1-0ubuntu1_amd64.deb
+            - run: ./ci/browser_tests.sh
       - run: 
           name: Deploy
           command: |
@@ -55,3 +76,7 @@ workflows:
   build_all:
     jobs:
       - remix-ide
+      build_all: 
+      jobs: 
+        - "Firefox"
+        - "Chrome"
