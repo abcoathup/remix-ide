@@ -6,11 +6,6 @@ module.exports = {
       version: '2.39',
       arch: process.arch,
       baseURL: 'https://chromedriver.storage.googleapis.com'
-    },
-    firefox: {
-      version: '0.23.0',
-      arch: process.arch,
-      baseURL: 'https://github.com/mozilla/geckodriver/releases/download'
     }
   }
 }
