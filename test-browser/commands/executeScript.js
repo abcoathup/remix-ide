@@ -8,7 +8,9 @@ class ExecuteScript extends EventEmitter {
       .clearValue('*[data-id="terminalCliInput"]')
       .click('*[data-id="terminalCli"]')
     if (runtimeBrowser === 'firefox') {
-      this.api.setValue('*[data-id="terminalCliInput"]', [script, this.api.Keys.ENTER, this.api.Keys.ENTER])
+      this.api.sendKeys('*[data-id="terminalCliInput"]', script)
+      .sendKeys('*[data-id="terminalCliInput"]', this.api.Keys.ENTER)
+      .sendKeys('*[data-id="terminalCliInput"]', this.api.Keys.ENTER)
     } else {
       this.api.keys(script)
       .keys(this.api.Keys.ENTER)
