@@ -45,7 +45,9 @@ module.exports = {
     return sources
   },
   'Remixd': function (browser) {
-    runTests(browser)
+    const browserName = browser.options.desiredCapabilities.browserName
+
+    return browserName === 'chrome' ? runTests(browser) : ''
   },
   'Import from node_modules ': function (browser) {
     /*
