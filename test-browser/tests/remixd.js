@@ -45,24 +45,27 @@ module.exports = {
     return sources
   },
   'Remixd': function (browser) {
-    const browserName = browser.options.desiredCapabilities.browserName
-
-    return browserName === 'chrome' ? runTests(browser) : ''
+    runTests(browser)
   },
   'Import from node_modules ': function (browser) {
     /*
       when a relative import is used (i.e import "openzeppelin-solidity/contracts/math/SafeMath.sol")
       remix (as well as truffle) try to resolve it against the node_modules and installed_contracts folder.
     */
-    browser
+    const browserName = browser.options.desiredCapabilities.browserName
+
+    return browserName === 'chrome' ? browser
       .waitForElementVisible('#icon-panel', 2000)
       .clickLaunchIcon('fileExplorers')
       .addFile('test_import_node_modules.sol', sources[3]['browser/test_import_node_modules.sol'])
       .clickLaunchIcon('solidity')
       .testContracts('test_import_node_modules.sol', sources[3]['browser/test_import_node_modules.sol'], ['SafeMath'])
+      : ''
   },
   'Import from node_modules and reference a github import': function (browser) {
-    browser
+    const browserName = browser.options.desiredCapabilities.browserName
+
+    return browserName === 'chrome' ? browser
       .waitForElementVisible('#icon-panel', 2000)
       .clickLaunchIcon('fileExplorers')
       .addFile('test_import_node_modules_with_github_import.sol', sources[4]['browser/test_import_node_modules_with_github_import.sol'])
@@ -72,6 +75,7 @@ module.exports = {
       .clickLaunchIcon('pluginManager')
       .scrollAndClick('#pluginManager article[id="remixPluginManagerListItem_remixd"] button')
       .end()
+      : ''
   },
   tearDown: sauce
 }
