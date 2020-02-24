@@ -19,8 +19,6 @@ jobs:
       - FILES_TO_PACKAGE: "assets background.js build icon.png index.html manifest.json README.md soljson.js package.json"
     working_directory: ~/remix-ide
 
-    parallelism: 4
-    
     steps:
       - checkout
       - run: npm install
